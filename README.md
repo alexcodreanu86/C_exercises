@@ -1,1 +1,1 @@
-# cpputest_project_template
+# C_Exercises
