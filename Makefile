@@ -1,7 +1,7 @@
 #Set this to @ to keep the makefile quiet
 SILENCE = @
 #---- Outputs ----#
-COMPONENT_NAME = CircularBuffer
+COMPONENT_NAME = Exercises
 
 
 TARGET_LIB = \
