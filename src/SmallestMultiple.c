@@ -1,7 +1,7 @@
 #include "SmallestMultiple.h"
 
-void addFactorTo(struct Multiples *, int);
-void addFactorTo(struct Multiples * container, int factor)
+void addFactorTo(struct Factors *, int);
+void addFactorTo(struct Factors * container, int factor)
 {
   container->count += 1;
   if (container->capacity < container->count)
@@ -12,8 +12,8 @@ void addFactorTo(struct Multiples * container, int factor)
   container->factors[container->count - 1] = factor;
 }
 
-void generateFactorsFor(struct Multiples *, int);
-void generateFactorsFor(struct Multiples * container, int number)
+void generateFactorsFor(struct Factors *, int);
+void generateFactorsFor(struct Factors * container, int number)
 {
   int possibleFactor = 2;
 
@@ -28,15 +28,15 @@ void generateFactorsFor(struct Multiples * container, int number)
   }
 }
 
-void SmallestMultiples_Destroy(struct Multiples * container)
+void SmallestMultiples_Destroy(struct Factors * container)
 {
   free(container->factors);
   free(container);
 }
 
-struct Multiples * SmallestMultiple_getAllFor(int number)
+struct Factors * SmallestMultiple_getAllFor(int number)
 {
-  struct Multiples * container = (struct Multiples *) calloc(1, sizeof(struct Multiples));
+  struct Factors * container = (struct Factors *) calloc(1, sizeof(struct Factors));
   container->count = 0;
   container->capacity = 2;
   container->factors = calloc((size_t) container->capacity, sizeof (int));
@@ -44,3 +44,15 @@ struct Multiples * SmallestMultiple_getAllFor(int number)
   return container;
 }
 
+int SmallestMultiple_for(int number)
+{
+  if (number < 2)
+    return number;
+
+  int result = 1;
+  for (int i=1; i <= number; i++) {
+    result *= i;
+  }
+
+  return result;
+}

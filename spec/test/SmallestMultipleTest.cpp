@@ -7,9 +7,9 @@ extern "C"
 
 TEST_GROUP(SmallestMultiple)
 {
-  Multiples * multiples;
+  Factors * multiples;
   void setup() {}
-  void teardown() {
+  void delete_multiples() {
     SmallestMultiples_Destroy(multiples);
   }
 };
@@ -18,6 +18,7 @@ TEST(SmallestMultiple, returnsNoMultiplesForOne)
 {
   multiples = SmallestMultiple_getAllFor(1);
   CHECK_EQUAL(0, multiples->count);
+  delete_multiples();
 }
 
 TEST(SmallestMultiple, returnsOneMultipleForTwo)
@@ -25,6 +26,7 @@ TEST(SmallestMultiple, returnsOneMultipleForTwo)
   multiples = SmallestMultiple_getAllFor(2);
   CHECK_EQUAL(1, multiples->count);
   CHECK_EQUAL(2, multiples->factors[0]);
+  delete_multiples();
 }
 
 TEST(SmallestMultiple, returnsMultiplesForFour)
@@ -34,6 +36,7 @@ TEST(SmallestMultiple, returnsMultiplesForFour)
   CHECK_EQUAL(2, multiples->count);
   CHECK_EQUAL(2, multiples->factors[0]);
   CHECK_EQUAL(2, multiples->factors[1]);
+  delete_multiples();
 }
 
 TEST(SmallestMultiple, returnsMultiplesForEight)
@@ -44,8 +47,26 @@ TEST(SmallestMultiple, returnsMultiplesForEight)
   CHECK_EQUAL(2, multiples->factors[0]);
   CHECK_EQUAL(2, multiples->factors[1]);
   CHECK_EQUAL(2, multiples->factors[2]);
+  delete_multiples();
 }
 
-// TEST(SmallestMultiple, returnsSmallestMultipleForTwo)
+TEST(SmallestMultiple, returnsSmallestMultipleForTwo)
+{
+  int multiple = SmallestMultiple_for(2);
+
+  CHECK_EQUAL(2, multiple);
+}
+
+TEST(SmallestMultiple, returnsSmallestMultipleForFour)
+{
+  int multiple = SmallestMultiple_for(3);
+
+  CHECK_EQUAL(6, multiple);
+}
+
+// TEST(SmallestMultiple, returnsSmallestMultipleForSix)
 // {
+//   int multiple = SmallestMultiple_for(6);
+//
+//   CHECK_EQUAL(60, multiple);
 // }
