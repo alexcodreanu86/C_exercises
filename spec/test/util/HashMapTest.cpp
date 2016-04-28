@@ -52,3 +52,14 @@ TEST(HashMap, overridesExistingValeu)
 
   CHECK_EQUAL(5, HashMap_GetValue(hashMap, 123));
 }
+
+TEST(HashMap, returnsKeysVector)
+{
+  HashMap_AddKeyValue(hashMap, 123, 3);
+  HashMap_AddKeyValue(hashMap, 234, 5);
+
+  Vector * keys = HashMap_GetKeys(hashMap);
+
+  CHECK_EQUAL(123, Vector_ValueAt(keys, 0));
+  CHECK_EQUAL(234, Vector_ValueAt(keys, 1));
+}

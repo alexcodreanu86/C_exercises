@@ -1,5 +1,4 @@
 #include "HashMap.h"
-#include "Vector.h"
 
 struct HashMap {
   int size;
@@ -44,4 +43,9 @@ int HashMap_GetValue(struct HashMap * self, int key)
 {
   int indexOfKey = Vector_IndexOf(self->keys, key);
   return Vector_ValueAt(self->values, indexOfKey);
+}
+
+struct Vector * HashMap_GetKeys(struct HashMap * self)
+{
+  return self->keys;
 }
