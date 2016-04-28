@@ -5,15 +5,15 @@
 
 #include <stdbool.h>
 
-struct Multiples {
+struct Factors {
   int count;
   int capacity;
   struct HashMap ** container;
 };
 
-struct Multiples * SmallestMultiple_AllMultiples(int);
-void SmallestMultiple_Destroy(struct Multiples *);
-struct Multiples * SmallestMultiple_CreateContainer(void);
+struct Factors * SmallestMultiple_AllMultiples(int);
+void SmallestMultiple_Destroy(struct Factors *);
+struct Factors * SmallestMultiple_CreateContainer(void);
 struct HashMap * SmallestMultiple_getAllFor(int);
 bool SmallestMultiple_multiples(void);
 int SmallestMultiple_for(int);

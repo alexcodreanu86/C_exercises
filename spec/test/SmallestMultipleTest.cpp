@@ -6,7 +6,7 @@ extern "C"
 }
 
 TEST_GROUP(SmallestMultiple) {
-  struct Multiples * container;
+  struct Factors * container;
   void setup() {
   }
   void teardown() {
