@@ -16,15 +16,18 @@ CPP_PLATFORM = Gcc
 
 SRC_DIRS = \
 	$(PROJECT_HOME_DIR)/src \
+	$(PROJECT_HOME_DIR)/src/** \
 
 TEST_SRC_DIRS = \
 	spec\
 	spec/*\
+	spec/**/**\
 
 INCLUDE_DIRS =\
   .\
   $(CPPUTEST_HOME)/include\
   $(PROJECT_HOME_DIR)/include\
+	$(PROJECT_HOME_DIR)/include/** \
 
 CPPUTEST_WARNINGFLAGS += -Wall -Werror -Wswitch-default -Wswitch-enum
 
