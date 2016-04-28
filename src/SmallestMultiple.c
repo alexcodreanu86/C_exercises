@@ -1,58 +1,36 @@
 #include "SmallestMultiple.h"
 
-void addFactorTo(struct Factors *, int);
-void addFactorTo(struct Factors * container, int factor)
+struct Multiples * SmallestMultiple_CreateContainer() {
+  struct Multiples * multiples = (struct Multiples *) calloc(1, sizeof(struct Multiples));
+  multiples->count = 0;
+  multiples->capacity = 2;
+  struct HashMap ** container = (struct HashMap **) calloc((size_t) 2, sizeof(struct HashMap *));
+  multiples->container = container;
+  return multiples;
+}
+
+void SmallestMultiple_Destroy(struct Multiples * self)
 {
-  container->count += 1;
-  if (container->capacity < container->count)
-  {
-    container->capacity *= 2;
-    container->factors= realloc(container->factors, (size_t) container->capacity * sizeof(int));
+  for (int i = 0; i < self->count; i++ ) {
+    HashMap_Destroy(self->container[i]);
   }
-  container->factors[container->count - 1] = factor;
+  free(self->container);
+  free(self);
 }
 
-void generateFactorsFor(struct Factors *, int);
-void generateFactorsFor(struct Factors * container, int number)
-{
-  int possibleFactor = 2;
-
-  while(possibleFactor <= number)
-  {
-    if (number % possibleFactor == 0){
-      number /= possibleFactor;
-      addFactorTo(container, possibleFactor);
-    } else {
-      possibleFactor++;
-    }
-  }
+struct HashMap * getMultiplesFor(int number);
+struct HashMap * getMultiplesFor(int number) {
+  struct HashMap * multiples = HashMap_Create();
+  HashMap_AddKeyValue(multiples, number, 1);
+  return multiples;
 }
 
-void SmallestMultiples_Destroy(struct Factors * container)
+struct Multiples * SmallestMultiple_AllMultiples(int number)
 {
-  free(container->factors);
-  free(container);
-}
+  struct Multiples * multiples = SmallestMultiple_CreateContainer();
+  multiples->count += (number -1);
+  multiples->container[0] = getMultiplesFor(2);
+  multiples->container[1] = getMultiplesFor(3);
 
-struct Factors * SmallestMultiple_getAllFor(int number)
-{
-  struct Factors * container = (struct Factors *) calloc(1, sizeof(struct Factors));
-  container->count = 0;
-  container->capacity = 2;
-  container->factors = calloc((size_t) container->capacity, sizeof (int));
-  generateFactorsFor(container, number);
-  return container;
-}
-
-int SmallestMultiple_for(int number)
-{
-  if (number < 2)
-    return number;
-
-  int result = 1;
-  for (int i=1; i <= number; i++) {
-    result *= i;
-  }
-
-  return result;
+  return multiples;
 }
