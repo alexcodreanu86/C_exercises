@@ -11,11 +11,10 @@ struct Factors {
   struct HashMap ** container;
 };
 
-struct Factors * SmallestMultiple_AllMultiples(int);
+struct Factors * SmallestMultiple_AllFactors(int);
 void SmallestMultiple_Destroy(struct Factors *);
 struct Factors * SmallestMultiple_CreateContainer(void);
-struct HashMap * SmallestMultiple_getAllFor(int);
-bool SmallestMultiple_multiples(void);
-int SmallestMultiple_for(int);
+struct HashMap * SmallestMultiple_GetFactorsFor(int);
+int SmallestMultiple_ForNumbersUpTo(int);
 
 #endif
