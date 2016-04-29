@@ -23,7 +23,8 @@ TEST(SmallestMultiple, returnsEmptyContainer)
   SmallestMultiple_Destroy(container);
 }
 
-TEST(SmallestMultiple, returnsForTwo) {
+TEST(SmallestMultiple, returnsForTwo)
+{
   struct HashMap * factors = SmallestMultiple_GetFactorsFor(2);
 
   CHECK_EQUAL(1, HashMap_GetValue(factors, 2));
@@ -50,7 +51,8 @@ TEST(SmallestMultiple, returnsFactorsForSix)
   HashMap_Destroy(factors);
 }
 
-TEST(SmallestMultiple, returnsFactorsForAllNumbersUpToThree) {
+TEST(SmallestMultiple, returnsFactorsForAllNumbersUpToThree)
+{
   struct Factors * factors = SmallestMultiple_AllFactors(3);
   CHECK_EQUAL(1, HashMap_GetValue(factors->container[0], 2));
   CHECK_EQUAL(1, HashMap_GetValue(factors->container[1], 3));
@@ -58,7 +60,8 @@ TEST(SmallestMultiple, returnsFactorsForAllNumbersUpToThree) {
   SmallestMultiple_Destroy(factors);
 }
 
-TEST(SmallestMultiple, returnsFactorsForAllNumbersUpToFour) {
+TEST(SmallestMultiple, returnsFactorsForAllNumbersUpToFour)
+{
   struct Factors * factors = SmallestMultiple_AllFactors(4);
   CHECK_EQUAL(3, factors->count);
 
@@ -82,8 +85,47 @@ TEST(SmallestMultiple, returnsMultipleWhenNumbersHaveNoFactorsInCommon)
   CHECK_EQUAL(6, smallestMultiple);
 }
 
-IGNORE_TEST(SmallestMultiple, returnsMultipleWhenNumbersHaveCommonFactors){
+TEST(SmallestMultiple, returnsMultipleWhenNumbersHaveCommonFactors)
+{
   int smallestMultiple = SmallestMultiple_ForNumbersUpTo(4);
 
   CHECK_EQUAL(12, smallestMultiple);
+}
+
+TEST(SmallestMultiple, returnsMultiplesForTheNumberOnEuler)
+{
+  int smallestMultiple = SmallestMultiple_ForNumbersUpTo(10);
+
+  CHECK_EQUAL(2520, smallestMultiple);
+}
+
+TEST(SmallestMultiple, returnsEulerAnswer)
+{
+  int smallestMultiple = SmallestMultiple_ForNumbersUpTo(20);
+
+  CHECK_EQUAL(232792560, smallestMultiple);
+}
+
+TEST(SmallestMultiple, returnsFactorsWithHighestCountsForThree)
+{
+  struct Factors * factors = SmallestMultiple_AllFactors(3);
+  struct HashMap * commonFactors = SmallestMultiple_FactorsWithHighestCount(factors);
+
+  CHECK_EQUAL(1, HashMap_GetValue(commonFactors, 2));
+  CHECK_EQUAL(1, HashMap_GetValue(commonFactors, 3));
+
+  SmallestMultiple_Destroy(factors);
+  HashMap_Destroy(commonFactors);
+}
+
+TEST(SmallestMultiple, returnsFactorsWithHighestCountsForFour)
+{
+  struct Factors * factors = SmallestMultiple_AllFactors(4);
+  struct HashMap * commonFactors = SmallestMultiple_FactorsWithHighestCount(factors);
+
+  CHECK_EQUAL(2, HashMap_GetValue(commonFactors, 2));
+  CHECK_EQUAL(1, HashMap_GetValue(commonFactors, 3));
+
+  SmallestMultiple_Destroy(factors);
+  HashMap_Destroy(commonFactors);
 }

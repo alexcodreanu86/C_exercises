@@ -1,4 +1,5 @@
 #include "SmallestMultiple.h"
+#include <stdio.h>
 
 struct Factors * SmallestMultiple_CreateContainer() {
   struct Factors * factors = (struct Factors *) calloc(1, sizeof(struct Factors));
@@ -60,11 +61,45 @@ struct HashMap * SmallestMultiple_GetFactorsFor(int number)
   return factors;
 }
 
-int SmallestMultiple_ForNumbersUpTo(int number) {
-  int result = 1;
-  for (int i = 2; i <= number; i++){
-    result *= i;
+struct HashMap * SmallestMultiple_FactorsWithHighestCount(struct Factors * factors)
+{
+  struct HashMap * allCommonFactors = HashMap_Create();
+
+  for (int i = 0; i < factors->count; i++) {
+    struct HashMap * currentFactors = factors->container[i];
+    struct Vector * keys = HashMap_GetKeys(currentFactors);
+
+    for (int x = 0; x < Vector_Count(keys); x++) {
+      int factor = Vector_ValueAt(keys, x);
+      int factorValue = HashMap_GetValue(currentFactors, factor);
+
+
+      if(!HashMap_HasKey(allCommonFactors, factor) || factorValue > HashMap_GetValue(allCommonFactors, factor)){
+        HashMap_AddKeyValue(allCommonFactors, factor, factorValue);
+      }
+    }
   }
+
+  return allCommonFactors;
+}
+
+int SmallestMultiple_ForNumbersUpTo(int number) {
+  struct Factors * factors = SmallestMultiple_AllFactors(number);
+  struct HashMap * allCommonFactors = SmallestMultiple_FactorsWithHighestCount(factors);
+  struct Vector * factorNumbers = HashMap_GetKeys(allCommonFactors);
+  int result = 1;
+  for (int i = 0; i < Vector_Count(factorNumbers); i++) {
+    int factor = Vector_ValueAt(factorNumbers, i);
+    int factorCount = HashMap_GetValue(allCommonFactors, factor);
+
+    for (int x = 0; x < factorCount; x++) {
+      result *= factor;
+    }
+  }
+
+  SmallestMultiple_Destroy(factors);
+  HashMap_Destroy(allCommonFactors);
 
   return result;
 }
+
