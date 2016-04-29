@@ -5,12 +5,7 @@ extern "C"
 #include "SmallestMultiple.h"
 }
 
-TEST_GROUP(SmallestMultiple) {
-  void setup() {
-  }
-  void teardown() {
-  }
-};
+TEST_GROUP(SmallestMultiple) {};
 
 TEST(SmallestMultiple, returnsEmptyContainer)
 {
