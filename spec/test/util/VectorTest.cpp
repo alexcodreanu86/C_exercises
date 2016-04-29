@@ -58,6 +58,14 @@ TEST(Vector, canAddMultipleElements)
   CHECK_EQUAL(3, Vector_ValueAt(vector, 2));
 }
 
+TEST(Vector, fillsReallocatedCapacityWithZeros) {
+  Vector_Push(vector, 1);
+  Vector_Push(vector, 2);
+  Vector_Push(vector, 3);
+
+  CHECK_EQUAL(0, Vector_ValueAt(vector, 3));
+}
+
 TEST(Vector, canSetTheValueAtAGivenIndex)
 {
   Vector_SetValueAt(vector, 1, 5);

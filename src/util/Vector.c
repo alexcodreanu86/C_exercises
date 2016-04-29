@@ -26,11 +26,22 @@ bool Vector_IsEmpty(struct Vector * self)
   return self->count == 0;
 }
 
+void fillUpEmptyPossitions(struct Vector *, int, int);
+void fillUpEmptyPossitions(struct Vector * self, int oldCapacity, int newCapacity)
+{
+  for(int i = oldCapacity; i < newCapacity; i++) {
+    self->container[i] = 0;
+  }
+}
+
+
 void Vector_Push(struct Vector * self, int value)
 {
   if (self->capacity >= self->count) {
+    int oldCapacity = self->capacity;
     self->capacity *= 2;
     self->container = realloc(self->container, (size_t) self->capacity * sizeof(int));
+    fillUpEmptyPossitions(self, oldCapacity, self->capacity);
   }
 
   self->container[self->count] = value;
