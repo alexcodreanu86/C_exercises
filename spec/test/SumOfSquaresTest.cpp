@@ -4,8 +4,7 @@ extern "C"
 {
 #include "SumOfSquares.h"
 }
-TEST_GROUP(SumOfSquares) {
-};
+TEST_GROUP(SumOfSquares) {};
 
 TEST(SumOfSquares, returnsTheSumForOne)
 {
