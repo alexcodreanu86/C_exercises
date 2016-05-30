@@ -29,7 +29,7 @@ INCLUDE_DIRS =\
   $(PROJECT_HOME_DIR)/include\
 	$(PROJECT_HOME_DIR)/include/** \
 
-CPPUTEST_WARNINGFLAGS += -Wall -Werror -Wswitch-default -Wswitch-enum
+CPPUTEST_WARNINGFLAGS += -Wall -Werror -Wswitch-default -Wswitch-enum -Wno-c++11-long-long
 
 
 include $(CPPUTEST_HOME)/build/MakefileWorker.mk
