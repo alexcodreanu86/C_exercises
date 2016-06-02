@@ -1,4 +1,5 @@
-#include <Vector.h>
+#include "Vector.h"
+#include <stdio.h>
 
 struct Vector {
   int count;
@@ -37,10 +38,10 @@ void fillUpEmptyPossitions(struct Vector * self, int oldCapacity, int newCapacit
 
 void Vector_Push(struct Vector * self, int value)
 {
-  if (self->capacity >= self->count) {
+  if (self->capacity <= self->count) {
     int oldCapacity = self->capacity;
     self->capacity *= 2;
-    self->container = realloc(self->container, (size_t) self->capacity * sizeof(int));
+    self->container = realloc(self->container, (unsigned long)self->capacity * sizeof(int));
     fillUpEmptyPossitions(self, oldCapacity, self->capacity);
   }
 

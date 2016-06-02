@@ -29,6 +29,5 @@ unsigned long int SumOfSquares_SquareSumDifference(unsigned int number)
   unsigned long squareSum = SumOfSquares_calculate(number);
   unsigned long sumSquare = SumOfSquares_SquareOfSum(number);
 
-
   return sumSquare - squareSum;
 }

@@ -5,49 +5,49 @@ extern "C"
 #include "Vector.h"
 }
 
-TEST_GROUP(Vector)
+TEST_GROUP(IntVector)
 {
   Vector * vector;
   void setup() {
-    vector = Vector_Create(2);
+    vector = Vector_Create(30);
   }
   void teardown() {
     Vector_Destroy(vector);
   }
 };
 
-TEST(Vector, isEmptyWhenCreated)
+TEST(IntVector, isEmptyWhenCreated)
 {
   CHECK_TEXT(Vector_IsEmpty(vector), "Vector not empty");
 }
 
-TEST(Vector, isNotEmptyAfterAddingValue)
+TEST(IntVector, isNotEmptyAfterAddingValue)
 {
   Vector_Push(vector, 1);
 
   CHECK_FALSE_TEXT(Vector_IsEmpty(vector), "Vector is empty after adding element");
 }
 
-TEST(Vector, sizeReturnsZeroWhenCreated)
+TEST(IntVector, sizeReturnsZeroWhenCreated)
 {
   CHECK_EQUAL(0, Vector_Count(vector));
 }
 
-TEST(Vector, returnsCorrectSizeAfterAddingElement)
+TEST(IntVector, returnsCorrectSizeAfterAddingElement)
 {
   Vector_Push(vector, 54);
 
   CHECK_EQUAL(1, Vector_Count(vector));
 }
 
-TEST(Vector, returnsElementAtIndex)
+TEST(IntVector, returnsElementAtIndex)
 {
   Vector_Push(vector, 54);
 
   CHECK_EQUAL(54, Vector_ValueAt(vector, 0));
 }
 
-TEST(Vector, canAddMultipleElements)
+TEST(IntVector, canAddMultipleElements)
 {
   Vector_Push(vector, 1);
   Vector_Push(vector, 2);
@@ -58,7 +58,7 @@ TEST(Vector, canAddMultipleElements)
   CHECK_EQUAL(3, Vector_ValueAt(vector, 2));
 }
 
-TEST(Vector, fillsReallocatedCapacityWithZeros) {
+TEST(IntVector, fillsReallocatedCapacityWithZeros) {
   Vector_Push(vector, 1);
   Vector_Push(vector, 2);
   Vector_Push(vector, 3);
@@ -66,19 +66,19 @@ TEST(Vector, fillsReallocatedCapacityWithZeros) {
   CHECK_EQUAL(0, Vector_ValueAt(vector, 3));
 }
 
-TEST(Vector, canSetTheValueAtAGivenIndex)
+TEST(IntVector, canSetTheValueAtAGivenIndex)
 {
   Vector_SetValueAt(vector, 1, 5);
 
   CHECK_EQUAL(5, Vector_ValueAt(vector, 1));
 }
 
-TEST(Vector, returnsInvalidIndexWhenDoesNotContainAValue)
+TEST(IntVector, returnsInvalidIndexWhenDoesNotContainAValue)
 {
   CHECK_EQUAL(INVALID_INDEX, Vector_IndexOf(vector, 5));
 }
 
-TEST(Vector, returnsIndexOfAGivenValue)
+TEST(IntVector, returnsIndexOfAGivenValue)
 {
   Vector_Push(vector, 7);
   Vector_Push(vector, 19);

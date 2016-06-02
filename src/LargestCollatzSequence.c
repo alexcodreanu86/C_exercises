@@ -1,16 +1,17 @@
 #include "LargestCollatzSequence.h"
+#include "UnsignedLongVector.h"
 
 unsigned long LCS_SequenceSize(unsigned long number)
 {
   unsigned long currentState = number;
   unsigned long sequenceSize = 1;
-  while(currentState > 1) {
+  while(currentState > 1)
+  {
     sequenceSize++;
-    if (currentState % 2 == 0) {
+    if (currentState % 2 == 0)
       currentState /= 2;
-    } else {
+    else
       currentState = currentState * 3 + 1;
-    }
   }
   return sequenceSize;
 }

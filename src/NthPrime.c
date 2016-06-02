@@ -1,35 +1,34 @@
 #include "NthPrime.h"
 #include <stdbool.h>
+#include "Vector.h"
 
-bool isPrime(int number, int * primes, int numberOfElements);
-bool isPrime(int number, int * primes, int numberOfElements) {
-  bool primeStatus = true;
-  for (int i = 0; i < numberOfElements; i++) {
-    if (number % primes[i] == 0) {
-      primeStatus = false;
-      break;
-    }
+bool isPrime(int number, struct Vector * primes);
+bool isPrime(int number, struct Vector * primes)
+{
+  int count = Vector_Count(primes);
+  for (int i = 0; i < count; i++)
+  {
+    if (number % Vector_ValueAt(primes, i) == 0)
+      return false;
   }
 
-  return primeStatus;
+  return true;
 }
 
 int NthPrime_Get(int number)
 {
-  int * primes = calloc((size_t) number, sizeof(int));;
-  primes[0] = 2;
-  int currentIndex = 1;
   int potentialPrime = 3;
 
-  while (currentIndex < number) {
-    if (isPrime(potentialPrime, primes, currentIndex)) {
-      primes[currentIndex] = potentialPrime;
-      currentIndex++;
-    }
-    potentialPrime++;
+  struct Vector * primes = Vector_Create(number);
+  Vector_Push(primes, 2);
+  while (Vector_Count(primes) < number)
+  {
+    if (isPrime(potentialPrime, primes))
+      Vector_Push(primes, potentialPrime);
+    potentialPrime += 2;
   }
 
-  int value = primes[currentIndex - 1];
-  free(primes);
+  int value = Vector_ValueAt(primes, Vector_Count(primes) - 1);
+  Vector_Destroy(primes);
   return value;
 }

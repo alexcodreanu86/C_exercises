@@ -34,10 +34,9 @@ void fillUpULEmptyPossitions(struct ULVector * self, UL oldCapacity, UL newCapac
   }
 }
 
-
 void ULVector_Push(struct ULVector * self, UL value)
 {
-  if (self->capacity >= self->count) {
+  if (self->capacity <= self->count) {
     UL oldCapacity = self->capacity;
     self->capacity *= 2;
     self->container = realloc(self->container, (size_t) self->capacity * sizeof(UL));
